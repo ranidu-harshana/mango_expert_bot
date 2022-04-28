@@ -9,9 +9,7 @@ use App\Botman\AlternativeFromQ2;
 class MainConversation extends Conversation
 {
     protected $answerQ;
-
     protected $land;
-
     protected $main_city;
     protected $plant_space;
     protected $month;
@@ -22,10 +20,12 @@ class MainConversation extends Conversation
         $this->ask('Are you new to planting mango trees?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
-            if($this->answerQ == 'yes') {
+            if(strtolower($this->answerQ) == 'yes') {
                 $this->askLandType();
-            }else{
+            }else if(strtolower($this->answerQ) == 'no'){
                 $this->bot->startConversation(new AlternativeFromQ2());
+            }else{
+                $this->repeat('Just say Yes or No');
             }
             
         });
@@ -36,10 +36,12 @@ class MainConversation extends Conversation
         $this->ask('Is it for landscaping or commercial cultivation?', function(Answer $answer) {
             $this->land = $answer->getText();
 
-            if($this->land == 'land') {
+            if(strtolower($this->land) == 'land') {
                 $this->askMainCity();
+            }else if(strtolower($this->land) == 'commercial'){
+                $this->bot->startConversation(new AlternativeFromQ3());
             }else{
-                // create another flow
+                $this->repeat('Just say Land or Commercial');
             }
             
         });
@@ -50,8 +52,10 @@ class MainConversation extends Conversation
         $this->ask('What is the main city where your home is located?', function(Answer $answer) {
             $this->main_city = $answer->getText();
 
-            if($this->main_city == 'colombo') {
+            if(strtolower($this->main_city) == 'colombo') {
                 $this->say('Sir! According to our data you belong to the (Wet/Intermediate/Dry) Zone');
+            }else{
+                $this->repeat('Enter a correct zone');
             }
             $this->askIdeaOfMangoVariety();
         });
@@ -62,11 +66,13 @@ class MainConversation extends Conversation
         $this->ask('Have you already got an idea of the verities of mango plants you are going to plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
-            if($this->answerQ == 'no'){
+            if(strtolower($this->answerQ) == 'no'){
                 $this->say('According to our data files, you belong to an area 1300 meters below sea level. Therefore, you are in a suitable environment to grow mangoes');
                 $this->askPlantationIndent();
+            }else if(strtolower($this->answerQ) == 'yes'){
+                $this->bot->startConversation(new AlternativeFromQ6());
             }else{
-                // another flow
+                $this->repeat('Just say Yes or No');
             }
             
         });
@@ -77,10 +83,12 @@ class MainConversation extends Conversation
         $this->ask('Do you intend to plant it in a pot or in the ground?', function(Answer $answer) {
             $this->plant_space = $answer->getText();
 
-            if($this->plant_space == 'Ground') {
+            if(strtolower($this->plant_space) == 'ground') {
                 $this->askUnderstadingNatureSoil();
+            }else if(strtolower($this->plant_space) == 'pot'){
+                $this->bot->startConversation(new AlternativeFromQ8());
             }else{
-                // create another flow
+                $this->repeat('Just say Pot or Ground');
             }
             
         });
@@ -105,10 +113,12 @@ class MainConversation extends Conversation
         $this->ask('Do you need further advice to cultivate this very successfully?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
-            if($this->answerQ == 'yes') {
+            if(strtolower($this->answerQ) == 'yes') {
                 $this->askNMonth();
+            }else if(strtolower($this->answerQ) == 'no'){
+                $this->bot->startConversation(new AlternativeFromQ13());
             }else{
-                // create another flow
+                $this->repeat('Just say Yes or No');
             }
             
         });
@@ -134,11 +144,13 @@ class MainConversation extends Conversation
         $this->ask($this->season.' season is the best time for you depending on your area. Do you have any knowledge about growing this mango plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
-            if($this->answerQ == 'no') {
+            if(strtolower($this->answerQ) == 'no') {
                 $this->say('If so, please refer to this paper in relation to this PDF');
                 $this->askMoreInfo();
+            }else if(strtolower($this->answerQ) == 'yes'){
+                $this->bot->startConversation(new AlternativeFromQ17());
             }else{
-                // create another flow
+                $this->repeat('Just say Yes or No');
             }
 
         });
@@ -149,11 +161,13 @@ class MainConversation extends Conversation
         $this->ask('Do you need more information?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
-            if($this->answerQ == 'yes') {
+            if(strtolower($this->answerQ) == 'yes') {
                 $this->say('Contact this Agri Development Officer');
                 return true;
+            }else if(strtolower($this->answerQ) == 'no'){
+                $this->bot->startConversation(new AlternativeFromQ19());
             }else{
-                // create another flow
+                $this->repeat('Just say Yes or No');
             }
         });
     }

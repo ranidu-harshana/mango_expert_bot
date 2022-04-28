@@ -22,4 +22,4 @@ Route::get('/botmans', function () {
     return view('botman');
 });
 
-Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
+Route::match(['post'], 'botman', [BotManController::class, 'handle']);

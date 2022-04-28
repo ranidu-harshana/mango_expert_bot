@@ -20,17 +20,28 @@
 	</style>
 </head>
 <body>
-jhj
- 
+	jhj
 </body>
 
-<script>
-	var botmanWidget = {
-		aboutText: 'Write Something',
-		introMessage: "✋ Hello! Good Morning/Afternoon/Evening ! "
-	};
-  </script>
+	<script>
+		var d = new Date();
+		var time = d.getHours();
+		var greeting = '';
+		if (time < "12") {
+			greeting = "Morning!";
+		} else if (time >= "12" && time < "17") {
+			greeting = "Afternoon!";
+		} else if (time >= "17" && time < "19") {
+			greeting = "Evening!";
+		} else if (time >= "19") {
+			greeting = "Night!";
+		}
+		var botmanWidget = {
+			aboutText: 'Write Something',
+			introMessage: "✋ Hello! Good "+ greeting,
+		};
+  	</script>
   
-  <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+  	<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
    
 </html>

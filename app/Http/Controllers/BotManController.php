@@ -12,8 +12,12 @@ class BotManController extends Controller
     {
         $botman = app('botman');
 
-        $botman->hears('{message}', function ($botman, $message) {
+        $botman->hears('Hi(.*)|Hello(.*)|hi(.*)|hello(.*)|hy|HY|Hy|HI|HELLO', function ($botman, $message) {
             $botman->startConversation(new MainConversation);
+        });
+
+        $botman->fallback(function($botman){
+            $botman->reply('Just say Hi to start conversation!.');
         });
 
         $botman->listen();
