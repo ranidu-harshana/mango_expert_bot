@@ -41,11 +41,11 @@ class LoginController extends Controller
                     if(!$claims == NULL) {
                         if($claims[0] == "admin") {
                             session(['verfied_admin_id' => $uid]);
-                            return redirect('botmans');
+                            return redirect()->route('admin.index');
                         }
                     }else{
                         session(['verfied_user_id' => $uid]);
-                        return redirect('botmans');
+                        return redirect()->route('user.index');
                     }
 
 

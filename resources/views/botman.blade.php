@@ -15,7 +15,6 @@
 			font-size: 14px;
 			margin: 0;
 			padding: 0;
-
 		}
 	</style>
 </head>
@@ -35,6 +34,8 @@
 			@csrf
 		</form>
 	@endif
+
+	
 </body>
 	@if (session('verfied_user_id'))
 		<script>

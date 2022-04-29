@@ -7,24 +7,26 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 
 class AlternativeFromQ2 extends Conversation
 {
-    protected $sex;
+    protected $answerQ;
 
-
-    public function askSex()
+    public function askProblemFertilizing()
     {
-        $this->ask('Hi! What is your sex?', function(Answer $answer) {
-            // Save result
-            $this->sex = $answer->getText();
+        $this->ask('Do you have a problem with fertilizing after planting?', function(Answer $answer) {
+            $this->answerQ = $answer->getText();
 
-            $this->say('sex '.$this->sex);
-            // $this->askEmail();
+            if(preg_match("/yes/i", strtolower($this->answerQ))) {
+                $this->say('Refer this fertilizer details');
+            }else if(preg_match("/no/i", strtolower($this->answerQ))){
+                $this->say('Contact this Agri Development Officer for more information');
+            }else{
+                $this->repeat('Just say Yes or No');
+            }
         });
     }
-
     
     public function run()
     {
         // This will be called immediately
-        $this->askSex();
+        $this->askProblemFertilizing();
     }
 }

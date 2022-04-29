@@ -1,0 +1,15 @@
+body{
+    margin: 0;
+}
+
+a.detail_link{
+    text-decoration: none;
+    color: rgb(2, 2, 2);
+    
+}
+
+a.detail_link:hover{
+    text-decoration: none;
+    color: rgb(26, 26, 248);
+}
+
