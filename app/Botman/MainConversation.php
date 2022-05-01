@@ -14,22 +14,10 @@ class MainConversation extends Conversation
     protected $land;
     protected $main_city;
     protected $plant_space;
+    protected $mango_type;
     protected $month;
     protected $season = 'Yala';
 
-    // public function test() {
-        
-    //     $this->attachment = new File("http://127.0.0.1:8000/assets/pdf/hi.pdf", [
-    //         'custom_payload' => false,
-    //     ]);
-        
-    //     // Build message object
-    //     $message = OutgoingMessage::create('This is my text')
-    //                 ->withAttachment($this->attachment);
-        
-    //     // Reply message object
-    //     $this->bot->reply($message);
-    // }
 
     public function askNewToMangoPlanting()
     {
@@ -53,8 +41,14 @@ class MainConversation extends Conversation
             $this->land = $answer->getText();
 
             if(preg_match("/land/i", strtolower($this->land))) {
+                $this->bot->userStorage()->save([
+                    'land' => 'Landscape'
+                ]);
                 $this->askMainCity();
             }else if(preg_match("/commercial/i", strtolower($this->land))){
+                $this->bot->userStorage()->save([
+                    'land' => 'Commercial'
+                ]);
                 $this->bot->startConversation(new AlternativeFromQ3());
             }else{
                 $this->repeat('Just say Land or Commercial');
@@ -75,6 +69,11 @@ class MainConversation extends Conversation
             $all_zones_simple = array_map('strtolower',array_keys($value));
             if(in_array(strtolower($this->main_city), $all_zones_simple)) {
                 $this->say('Sir! According to our data you belong to the '. $value[ucwords(strtolower($this->main_city))]);
+                $impolded_zone = explode(' ', $value[ucwords(strtolower($this->main_city))]);
+                $this->bot->userStorage()->save([
+                    'main_city' => $this->main_city,
+                    'zone' =>  strtolower($impolded_zone[0]) .'_'. strtolower($impolded_zone[1]),
+                ]);
                 $this->askIdeaOfMangoVariety();
             }else{
                 $this->repeat('Enter a correct zone');
@@ -104,8 +103,14 @@ class MainConversation extends Conversation
             $this->plant_space = $answer->getText();
 
             if(preg_match("/ground/i", strtolower($this->plant_space))) {
+                $this->bot->userStorage()->save([
+                    'plant_space' => 'ground',
+                ]);
                 $this->askUnderstadingNatureSoil();
             }else if(preg_match("/pot/i", strtolower($this->plant_space))){
+                $this->bot->userStorage()->save([
+                    'plant_space' => 'pot',
+                ]);
                 $this->bot->startConversation(new AlternativeFromQ8());
             }else{
                 $this->repeat('Just say Pot or Ground');
@@ -122,8 +127,21 @@ class MainConversation extends Conversation
             $this->say('It is also a land of fine gravel Or a land with clay soils and rough soils');
             $this->say('Based on the data you have provided, this artificial intelligence will consider our data and suggest the most suitable mango variety for you.');
             
+            $zone = $this->bot->userStorage()->get('zone');
+            $space = $this->bot->userStorage()->get('plant_space');
+
+            $database = app('firebase.database');
+            $results = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/')->getChildKeys();
+
+            foreach ($results as $key => $mango_type) {
+                $result = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/'.$mango_type)->getValue();
+                if($result[$zone] && $result[$space]) {
+                    $this->mango_type = $mango_type;
+                    break;
+                }
+            }
             // operate answer for this
-            $this->say('That is the most suitable plant for you is …………….');
+            $this->say('That is the most suitable plant for you is '.$this->mango_type);
             $this->askNeedFutherAdvice();
         });
     }
@@ -154,7 +172,9 @@ class MainConversation extends Conversation
 
             // operate answer for this
             $this->say('But the area you are in belongs to the wet zone so it is / is not suitable for it');
-
+            $this->bot->userStorage()->save([
+                'month' => $this->month
+            ]);
             $this->askKnowladgeGrowing();
         });
     }
@@ -183,6 +203,15 @@ class MainConversation extends Conversation
 
             if(preg_match("/yes/i", strtolower($this->answerQ))) {
                 $this->say('Contact this Agri Development Officer');
+                $this->say('Thank you!');
+                $postData = [
+                    'land' => $this->bot->userStorage()->get('land'),
+                    'main_city'=>$this->bot->userStorage()->get('main_city'),
+                    'zone'=> $this->bot->userStorage()->get('zone'),
+                    'month'=> $this->bot->userStorage()->get('month')
+                ];
+                $database = app('firebase.database');
+                $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
                 return true;
             }else if(preg_match("/no/i", strtolower($this->answerQ))){
                 $this->bot->startConversation(new AlternativeFromQ19());

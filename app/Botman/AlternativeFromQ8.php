@@ -18,9 +18,21 @@ class AlternativeFromQ8 extends Conversation
         $this->bot->typesAndWaits(1);
         $this->say('Based on the data you have provided, this artificial intelligence will consider our data and suggest the most suitable mango variety for you.');
         
-        $this->bot->typesAndWaits(2);
-        // opearte
-        $this->say('That is the most suitable plant for you is …………….');
+        $zone = $this->bot->userStorage()->get('zone');
+        $space = $this->bot->userStorage()->get('plant_space');
+
+        $database = app('firebase.database');
+        $results = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/')->getChildKeys();
+
+        foreach ($results as $key => $mango_type) {
+            $result = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/'.$mango_type)->getValue();
+            if($result[$zone] && $result[$space]) {
+                $this->mango_type = $mango_type;
+                break;
+            }
+        }
+        // operate answer for this
+        $this->say('That is the most suitable plant for you is '.$this->mango_type);
         $this->askNeedFutherAdvice();
     }
 
@@ -50,7 +62,9 @@ class AlternativeFromQ8 extends Conversation
 
             // operate answer for this
             $this->say('But the area you are in belongs to the wet zone so it is / is not suitable for it');
-
+            $this->bot->userStorage()->save([
+                'month' => $this->month
+            ]);
             $this->askKnowladgeGrowing();
         });
     }
@@ -79,6 +93,14 @@ class AlternativeFromQ8 extends Conversation
 
             if(preg_match("/yes/i", strtolower($this->answerQ))) {
                 $this->say('Contact this Agri Development Officer');
+                $postData = [
+                    'land' => $this->bot->userStorage()->get('land'),
+                    'main_city'=>$this->bot->userStorage()->get('main_city'),
+                    'zone'=> $this->bot->userStorage()->get('zone'),
+                    'month'=> $this->bot->userStorage()->get('month')
+                ];
+                $database = app('firebase.database');
+                $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
                 return true;
             }else if(preg_match("/no/i", strtolower($this->answerQ))){
                 $this->bot->startConversation(new AlternativeFromQ19());

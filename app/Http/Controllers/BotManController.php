@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Botman\MainConversation;
+use BotMan\BotMan\Middleware\DialogFlowV2;
 use Illuminate\Http\Request;
 
 class BotManController extends Controller

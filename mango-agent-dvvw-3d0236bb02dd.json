@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "mango-agent-dvvw",
+  "private_key_id": "3d0236bb02dd1a2d70077de4759ce99c99202993",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCtPInqupjF5lUf\nZjdtH4yJ4TcleBd39mF3IWIQ6ydyLmnzJqqzjBdoluUqzNZEU47Qrr1cRItvbdLD\nODrMq4avDVQx8O9wrq7a8yE9wvVy6sy0F1OJGoHS2yjE22sytGfMfDGCsFpUsXlI\n+w/BeTVAq67h9ayUadz2fvQd5G0MwVimmfh43A2dtdY/4gjcYJ1FPCmnhi7txmLq\ns391s+JG8CaVpJlBv8x+BJINnTrJ8O55xJfihM+8XfJ6Tb937D+njC+ckdvla3ea\n/ewtZbGcn+Mrgu6Lg4O7hYmU3ywwHijziIvYKN8DaIQd7Eiq+KV1Rd8cVA4CpOlZ\nztotcTsRAgMBAAECggEAF2eRQddhki8bEKnDKD41wwpcjyEz7n7+I6sCGu4M6hYP\ni2G4eJcfMdVdHb9ciBD6lQKz+PYWboCvE7U86xpAu9VjACJLKcqikK3TWmBEv/it\nR6bKdZX8CdbrzE4mo/blT9D28W9OV5iTSG20RGZ8mtb3GCEUZrK3ac1fbCBzLotB\nmyC3S6XnA3LoCWOniWlV8Y2Y2bir/Y0QKNQhgEoFvZ+uwqvjYc7mlfkWIrONzGhP\n3RE8K0AlZ0Es7xHBigugDZbQ3snMcxYfzdMJ6RgASj7q86tO74W640mlg1t+JoH8\nL/stjtIdGD8kHurg/V6R2MYrQzOQH97RkmFgUcxr1wKBgQDhoSH6sswehVNhOfg3\ngw9hJgWXe8wVyxoiUMQF4Cz7AvfyXzNKoKJBXne3vAYKHM30IX1g/RuNU4Lb8o7i\nRmS03YzSXa4KRkR6aSE2Ko7OBguOFPO+JoImiFcrr79BtLZ20Zu1Mkk4a4Z45y4p\n8uZ5F1a/IPZOboIshG2PFgP2iwKBgQDEjgUhzZpQ9wzgD1VckU+Yh+kbOmx4b4lP\nToH1J852SLG3sZQaMeOHIwxrGz0I5yH/Jdshi1pK4kruqXAnsYM9rArs/2+CeJSO\nzAkKzJ2hWyDfWiQAPDz0y3bvM6M5TbRJDx3JdXfp33gsWyOlSYGVRIEzocoQ6uGH\n7nkhjs5kUwKBgQDIpu1674rLEbJm4pC1fV4t/Qw3/SYvs2FYZw8MUqJtz+QErVkF\n4viovYQl55ZPY/JcS3Qezriz5DKZu4oJ/KQOnIBhjGH8TSUU321jqFE7MvEPt95T\nmhdggRtUhITHwBgMbrfUWhX3kNgTqTPKpnMD+Rdx/bRNZ8VoJZTxDJkVpQKBgQCl\n6+ljJqe87z/8KJV7heL2NMzPwlrss+LqgrBr3gWIjkcPdSU7k5+pZSnHhH/acxqc\nwz0fLP60tiBhJcFakJvkRMYYWGyua9GkVZLQffgWzNGMGhDH7hHa56Lnu+RurCyj\ne9I+TR5D2/QbJXiKv+lWszSJ/GqSK2TlFadFb8LEpwKBgERv6gR2JJyaiUcePPxa\nkMG7ic+cwzUJnD8EPYc/c5wLjMkfXBENw5xg78klWfhFzt7SG7s3bcz52t43NC6q\nAQsyY1uDgdeGLlGb3J4JxJA+ov+gG45goSH8Tu1wlcyf8nlpWqM5YhfpST9/Ea24\n+mc9Y7pbthfdHbPM789+04i/\n-----END PRIVATE KEY-----\n",
+  "client_email": "mangoexpert@mango-agent-dvvw.iam.gserviceaccount.com",
+  "client_id": "107538751136667392885",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mangoexpert%40mango-agent-dvvw.iam.gserviceaccount.com"
+}
