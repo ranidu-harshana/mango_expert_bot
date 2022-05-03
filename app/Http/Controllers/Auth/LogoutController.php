@@ -11,6 +11,6 @@ class LogoutController extends Controller
         session()->forget('verfied_user_id');
         session()->forget('verfied_admin_id');
         session()->forget('idTokenString');
-        return redirect('login');
+        return redirect('/');
     }
 }
