@@ -31,6 +31,7 @@ Route::match(['post'], 'botman', [BotManController::class, 'handle']);
 Route::get('/login', [LoginController::class, 'login_form'])->name('login_form');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [RegisterController::class, 'register_form'])->name('register_form');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index');

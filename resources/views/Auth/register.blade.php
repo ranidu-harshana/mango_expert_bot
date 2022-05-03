@@ -5,25 +5,32 @@
         <div class="account-page">
             <div class="account-center">
                 <div class="account-box">
-                    <form action="" method="POST" class="form-signin">
+                    <form action="{{ route('register') }}" method="POST" class="form-signin">
+                        @csrf
                         <div class="account-logo">
                             <a href="/"><img src="{{ asset('assets/img/user.png') }}" alt=""></a>
                         </div>
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" name="displayName" class="form-control">
+                            <label>Name</label>
+                            <input type="text" name="displayName" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" name="email" class="form-control">
+                            <input type="email" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
+                        
                         <div class="form-group">
-                            <label>Mobile Number</label>
-                            <input type="text" name="phoneNumber" class="form-control">
+                            <label>Confirm Password</label>
+                            <input type="password" name="password_confirmation" class="form-control" required>
                         </div>
                         {{-- <div class="form-group checkbox">
                             <label>

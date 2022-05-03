@@ -16,8 +16,6 @@ class LoginController extends Controller
         return view('Auth.login');
     }
 
-    
-
     public function login(Request $request){
         $auth = app('firebase.auth');
 
@@ -59,9 +57,5 @@ class LoginController extends Controller
         } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
             echo $e->getMessage();
         }
-    }
-
-    public function register(){
-        // 
     }
 }
