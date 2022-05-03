@@ -8,7 +8,7 @@
                     <form action="{{ route('login') }}" class="form-signin" method="post">
                         @csrf
                         <div class="account-logo">
-                            <a href="index-2.html"><img src="{{ asset('assets/img/user.png') }}" alt=""></a>
+                            <a href="/"><img src="{{ asset('assets/img/user.png') }}" alt=""></a>
                         </div>
                         <div class="form-group">
                             <label>Username or Email</label>
@@ -18,9 +18,9 @@
                             <label>Password</label>
                             <input type="password" name="password" class="form-control">
                         </div>
-                        <div class="form-group text-right">
+                        {{-- <div class="form-group text-right">
                             <a href="forgot-password.html">Forgot your password?</a>
-                        </div>
+                        </div> --}}
                         <div class="form-group text-center">
                             <button type="submit" name="login" class="btn btn-primary account-btn">Login</button>
                         </div>

@@ -7,7 +7,7 @@
                 <div class="account-box">
                     <form action="" method="POST" class="form-signin">
                         <div class="account-logo">
-                            <a href="index-2.html"><img src="{{ asset('assets/img/user.png') }}" alt=""></a>
+                            <a href="/"><img src="{{ asset('assets/img/user.png') }}" alt=""></a>
                         </div>
                         <div class="form-group">
                             <label>Username</label>
@@ -25,11 +25,11 @@
                             <label>Mobile Number</label>
                             <input type="text" name="phoneNumber" class="form-control">
                         </div>
-                        <div class="form-group checkbox">
+                        {{-- <div class="form-group checkbox">
                             <label>
                                 <input type="checkbox"> I have read and agree the Terms & Conditions
                             </label>
-                        </div>
+                        </div> --}}
                         <div class="form-group text-center">
                             <button class="btn btn-primary account-btn" type="submit" name="register">Signup</button>
                         </div>
