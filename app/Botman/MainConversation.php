@@ -57,8 +57,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askMainCity()
-    {
+    public function askMainCity() {
         $this->ask('What is the main city where your home is located?', function(Answer $answer) {
             $this->main_city = $answer->getText();
 
@@ -81,8 +80,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askIdeaOfMangoVariety()
-    {
+    public function askIdeaOfMangoVariety() {
         $this->ask('Have you already got an idea of the verities of mango plants you are going to plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
@@ -97,8 +95,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askPlantationIndent()
-    {
+    public function askPlantationIndent() {
         $this->ask('Do you intend to plant it in a pot or in the ground?', function(Answer $answer) {
             $this->plant_space = $answer->getText();
 
@@ -119,8 +116,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askUnderstadingNatureSoil()
-    {
+    public function askUnderstadingNatureSoil() {
         $this->ask('Do you have an understanding of the nature of the soil at the chosen location where you intend to plant the plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
@@ -146,8 +142,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askNeedFutherAdvice()
-    {
+    public function askNeedFutherAdvice() {
         $this->ask('Do you need further advice to cultivate this very successfully?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
@@ -162,8 +157,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askNMonth()
-    {
+    public function askNMonth() {
         $this->ask('In what month do you expect to plant this plant?', function(Answer $answer) {
             $this->month = $answer->getText();
 
@@ -179,8 +173,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askKnowladgeGrowing()
-    {
+    public function askKnowladgeGrowing() {
         $this->ask($this->season.' season is the best time for you depending on your area. Do you have any knowledge about growing this mango plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
@@ -197,8 +190,7 @@ class MainConversation extends Conversation
         });
     }
 
-    public function askMoreInfo()
-    {
+    public function askMoreInfo() {
         $this->ask('Do you need more information?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 

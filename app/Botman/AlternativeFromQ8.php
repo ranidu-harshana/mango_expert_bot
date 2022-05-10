@@ -32,12 +32,11 @@ class AlternativeFromQ8 extends Conversation
             }
         }
         // operate answer for this
-        $this->say('That is the most suitable plant for you is '.$this->mango_type);
+        $this->say('That is the most suitable plant for you is <span style="color: #5cb85c"><b>'.$this->mango_type. '</b></span>');
         $this->askNeedFutherAdvice();
     }
 
-    public function askNeedFutherAdvice()
-    {
+    public function askNeedFutherAdvice() {
         $this->ask('Do you need further advice to cultivate this very successfully?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
@@ -52,8 +51,7 @@ class AlternativeFromQ8 extends Conversation
         });
     }
 
-    public function askNMonth()
-    {
+    public function askNMonth() {
         $this->ask('In what month do you expect to plant this plant?', function(Answer $answer) {
             $this->month = $answer->getText();
 
@@ -69,13 +67,13 @@ class AlternativeFromQ8 extends Conversation
         });
     }
 
-    public function askKnowladgeGrowing()
-    {
+    public function askKnowladgeGrowing() {
         $this->ask($this->season.' season is the best time for you depending on your area. Do you have any knowledge about growing this mango plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
             if(preg_match("/no/i", strtolower($this->answerQ))) {
-                $this->say('If so, please refer to this paper in relation to this PDF');
+                $this->say('If so, please refer to this paper in relation to this PDF <br><a class="btn btn-success" href="../planting/details" target="_blank">Click</a>');
+                
                 $this->askMoreInfo();
             }else if(preg_match("/yes/i", strtolower($this->answerQ))){
                 $this->bot->startConversation(new AlternativeFromQ17());
@@ -86,13 +84,13 @@ class AlternativeFromQ8 extends Conversation
         });
     }
 
-    public function askMoreInfo()
-    {
+    public function askMoreInfo() {
         $this->ask('Do you need more information?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
             if(preg_match("/yes/i", strtolower($this->answerQ))) {
                 $this->say('Contact this Agri Development Officer');
+                $this->say('Thank you!');
                 $postData = [
                     'land' => $this->bot->userStorage()->get('land'),
                     'main_city'=>$this->bot->userStorage()->get('main_city'),
