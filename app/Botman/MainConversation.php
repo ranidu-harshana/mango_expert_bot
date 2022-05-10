@@ -68,7 +68,7 @@ class MainConversation extends Conversation
             $value = $snapshot->getValue();
             $all_zones_simple = array_map('strtolower',array_keys($value));
             if(in_array(strtolower($this->main_city), $all_zones_simple)) {
-                $this->say('Sir! According to our data you belong to the '. $value[ucwords(strtolower($this->main_city))]);
+                $this->say('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($this->main_city))] . '</b></span>');
                 $impolded_zone = explode(' ', $value[ucwords(strtolower($this->main_city))]);
                 $this->bot->userStorage()->save([
                     'main_city' => $this->main_city,
@@ -141,7 +141,7 @@ class MainConversation extends Conversation
                 }
             }
             // operate answer for this
-            $this->say('That is the most suitable plant for you is '.$this->mango_type);
+            $this->say('That is the most suitable plant for you is <span style="color: #5cb85c"><b>'.$this->mango_type. '</b></span>');
             $this->askNeedFutherAdvice();
         });
     }
@@ -185,7 +185,8 @@ class MainConversation extends Conversation
             $this->answerQ = $answer->getText();
 
             if(preg_match("/no/i", strtolower($this->answerQ))) {
-                $this->say('If so, please refer to this paper in relation to this PDF');
+                $this->say('If so, please refer to this paper in relation to this PDF <br><a class="btn btn-success" href="../planting/details" target="_blank">Click</a>');
+                
                 $this->askMoreInfo();
             }else if(preg_match("/yes/i", strtolower($this->answerQ))){
                 $this->bot->startConversation(new AlternativeFromQ17());

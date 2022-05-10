@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\UserController;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,38 +19,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['is_guest'])->group(function () {
+    Route::get('/', [UserController::class, 'guest'])->name('user.guest');
+    Route::get('/home', [UserController::class, 'guest'])->name('user.guest');
+
+    Route::get('/login', [LoginController::class, 'login_form'])->name('login_form');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
+    Route::get('/register', [RegisterController::class, 'register_form'])->name('register_form');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
 });
 
-Route::get('/botmans', function () {
-    return view('botman');
+Route::middleware(['is_logged_in'])->group(function () {
+    Route::get('/botmans', function () {
+        return view('botman');
+    });
+
+    Route::match(['post'], 'botman', [BotManController::class, 'handle']);
+
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/planting/details', [UserController::class, 'planting_details_pdf'])->name('planting_details_pdf');
+
+    // Route::get('/test', function () {
+    //     // $database = app('firebase.database');
+    //     // $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
+    //     // $snapshot = $reference->getSnapshot();
+    //     // $value = $snapshot->getValue();
+    //     // echo '<pre>';
+    //     // print_r($value);
+    //     // echo '</pre>';
+
+    //     // $all_zones_simple = array_map('strtolower',array_keys($value));
+    //     // echo '<pre>';
+    //     // print_r($all_zones_simple);
+    //     // echo '</pre>';
+
+
+    //     return view('user.index');
+    // });
 });
-
-Route::match(['post'], 'botman', [BotManController::class, 'handle']);
-
-Route::get('/login', [LoginController::class, 'login_form'])->name('login_form');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/register', [RegisterController::class, 'register_form'])->name('register_form');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
-
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
-
-// Route::get('/test', function () {
-//     // $database = app('firebase.database');
-//     // $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
-//     // $snapshot = $reference->getSnapshot();
-//     // $value = $snapshot->getValue();
-//     // echo '<pre>';
-//     // print_r($value);
-//     // echo '</pre>';
-
-//     // $all_zones_simple = array_map('strtolower',array_keys($value));
-//     // echo '<pre>';
-//     // print_r($all_zones_simple);
-//     // echo '</pre>';
-
-
-//     return view('user.index');
-// });
