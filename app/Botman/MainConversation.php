@@ -5,19 +5,15 @@ namespace App\Botman;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Botman\AlternativeFromQ2;
-use BotMan\BotMan\Messages\Attachments\File;
-use BotMan\BotMan\Messages\Attachments\Image;
-use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 class MainConversation extends Conversation
 {
     protected $answerQ;
-    protected $land;
-    protected $main_city;
-    protected $plant_space;
-    protected $mango_type;
-    protected $month;
-    protected $season = 'Yala';
-
+    protected $land = '';
+    protected $main_city = '';
+    protected $plant_space = '';
+    protected $mango_variety = '';
+    protected $month = '';
+    protected $season = '';
 
     public function askNewToMangoPlanting()
     {
@@ -62,18 +58,29 @@ class MainConversation extends Conversation
             $this->main_city = $answer->getText();
 
             $database = app('firebase.database');
+
+            $reference = $database->getReference('cant_cultivate/-N0jDbEceHRDRrgaw7T4');
+            $snapshot = $reference->getSnapshot();
+            $value = $snapshot->getValue();
+            $cant_cultivate_zones = array_map('strtolower',array_keys($value));
+            $imploded_cant_cultivate_cities = implode('|', $cant_cultivate_zones);
+
             $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
             $snapshot = $reference->getSnapshot();
             $value = $snapshot->getValue();
             $all_zones_simple = array_map('strtolower',array_keys($value));
-            if(in_array(strtolower($this->main_city), $all_zones_simple)) {
-                $this->say('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($this->main_city))] . '</b></span>');
-                $impolded_zone = explode(' ', $value[ucwords(strtolower($this->main_city))]);
+
+            $imploded_cities = implode('|', $all_zones_simple);
+            if(preg_match('/'.$imploded_cities.'/i', strtolower($this->main_city), $matched)) {
+                $this->say('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
+                $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
                 $this->bot->userStorage()->save([
                     'main_city' => $this->main_city,
                     'zone' =>  strtolower($impolded_zone[0]) .'_'. strtolower($impolded_zone[1]),
                 ]);
                 $this->askIdeaOfMangoVariety();
+            }else if(preg_match('/'.$imploded_cant_cultivate_cities.'/i', strtolower($this->main_city), $matched)) {
+                $this->bot->startConversation(new NotSuitableZone());
             }else{
                 $this->repeat('Enter a correct zone');
             }
@@ -85,8 +92,10 @@ class MainConversation extends Conversation
             $this->answerQ = $answer->getText();
 
             if(preg_match("/no/i", strtolower($this->answerQ))){
-                $this->say('According to our data files, you belong to an area 1300 meters below sea level. Therefore, you are in a suitable environment to grow mangoes');
-                $this->askPlantationIndent();
+                
+                    $this->say('According to our data files, you belong to an area 1300 meters below sea level. Therefore, you are in a suitable environment to grow mangoes');
+                    $this->askPlantationIndent();
+                
             }else if(preg_match("/yes/i", strtolower($this->answerQ))){
                 $this->bot->startConversation(new AlternativeFromQ6());
             }else{
@@ -128,16 +137,18 @@ class MainConversation extends Conversation
 
             $database = app('firebase.database');
             $results = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/')->getChildKeys();
-
-            foreach ($results as $key => $mango_type) {
-                $result = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/'.$mango_type)->getValue();
+            $suitable_mangoes = [];
+            foreach ($results as $key => $mango_variety) {
+                $result = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/'.$mango_variety)->getValue();
                 if($result[$zone] && $result[$space]) {
-                    $this->mango_type = $mango_type;
-                    break;
+                    array_push($suitable_mangoes, $mango_variety);
                 }
             }
-            // operate answer for this
-            $this->say('That is the most suitable plant for you is <span style="color: #5cb85c"><b>'.$this->mango_type. '</b></span>');
+            $this->mango_variety = $suitable_mangoes[rand(0, count($suitable_mangoes)-1)];
+            $this->bot->userStorage()->save([
+                'mango_variety' => $this->mango_variety
+            ]);
+            $this->say('That is the most suitable plant for you is <span style="color: #5cb85c"><b>'.$this->mango_variety. '</b></span>');
             $this->askNeedFutherAdvice();
         });
     }
@@ -161,20 +172,35 @@ class MainConversation extends Conversation
         $this->ask('In what month do you expect to plant this plant?', function(Answer $answer) {
             $this->month = $answer->getText();
 
-            // operate answer for this
-            $this->say('The month you choose belongs to the Yala / Maha season');
+            if(preg_match("/(september|october|november|december|january|february|march)/i", strtolower($this->month))){
+                $this->season = 'Maha';
+                $this->say('The month you choose belongs to the <span style="color: #5cb85c"><b>'. $this->season .' season</b></span>');
 
-            // operate answer for this
-            $this->say('But the area you are in belongs to the wet zone so it is / is not suitable for it');
-            $this->bot->userStorage()->save([
-                'month' => $this->month
-            ]);
-            $this->askKnowladgeGrowing();
+                // operate answer for this
+                $this->say('But the area you are in belongs to the wet zone so it is / is not suitable for it');
+                $this->bot->userStorage()->save([
+                    'month' => $this->month
+                ]);
+                $this->askKnowladgeGrowing();
+            }elseif(preg_match("/(may|june|july|august)/i", strtolower($this->month))){    
+                $this->season = 'Yala';
+                $this->say('The month you choose belongs to the <span style="color: #5cb85c"><b>'. $this->season .'</b></span> season');
+
+                // operate answer for this
+                $this->say('But the area you are in belongs to the <span style="color: #5cb85c"><b> '. $this->bot->userStorage()->get('zone') .' </b></span> so it is / is not suitable for it');
+                $this->bot->userStorage()->save([
+                    'month' => $this->month
+                ]);
+                $this->askKnowladgeGrowing();
+            }else{
+                $this->repeat('Month cannot be recognized to identify the season!.');
+            }
+            
         });
     }
 
     public function askKnowladgeGrowing() {
-        $this->ask($this->season.' season is the best time for you depending on your area. Do you have any knowledge about growing this mango plant?', function(Answer $answer) {
+        $this->ask('<span style="color: #5cb85c"><b>' .$this->season. '</b></span> season is the best time for you depending on your area. Do you have any knowledge about growing this mango plant?', function(Answer $answer) {
             $this->answerQ = $answer->getText();
 
             if(preg_match("/no/i", strtolower($this->answerQ))) {
@@ -201,7 +227,9 @@ class MainConversation extends Conversation
                     'land' => $this->bot->userStorage()->get('land'),
                     'main_city'=>$this->bot->userStorage()->get('main_city'),
                     'zone'=> $this->bot->userStorage()->get('zone'),
-                    'month'=> $this->bot->userStorage()->get('month')
+                    'month'=> $this->bot->userStorage()->get('month'),
+                    'mango_variety'=> $this->bot->userStorage()->get('mango_variety'),
+                    'date'=> date("Y-m-d"),
                 ];
                 $database = app('firebase.database');
                 $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
@@ -213,6 +241,7 @@ class MainConversation extends Conversation
             }
         });
     }
+
 
     public function run()
     {

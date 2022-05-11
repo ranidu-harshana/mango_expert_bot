@@ -5,10 +5,8 @@ namespace App\Botman;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 
-class AlternativeFromQ2 extends Conversation
+class AlternativeFromQ2 extends MainConversation
 {
-    protected $answerQ;
-
     public function askProblemFertilizing()
     {
         $this->ask('Do you have a problem with fertilizing after planting?', function(Answer $answer) {

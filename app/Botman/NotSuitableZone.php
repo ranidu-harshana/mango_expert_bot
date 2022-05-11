@@ -4,11 +4,13 @@ namespace App\Botman;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
-
-class AlternativeFromQ19 extends MainConversation
+use App\Botman\AlternativeFromQ2;
+class NotSuitableZone extends Conversation
 {
-    public function askMoreInfo()
+
+    public function canCultivate()
     {
+        $this->say('According to our data files, you are not belong to an area 1300 meters below sea level. Therefore, you are not in a suitable environment to grow mangoes');
         $postData = [
             'land' => $this->bot->userStorage()->get('land'),
             'main_city'=>$this->bot->userStorage()->get('main_city'),
@@ -21,11 +23,10 @@ class AlternativeFromQ19 extends MainConversation
         $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
         $this->say('Thank you!');
     }
-
     
+
     public function run()
     {
-        // This will be called immediately
-        $this->askMoreInfo();
+        $this->canCultivate();
     }
 }

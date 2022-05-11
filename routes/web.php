@@ -41,21 +41,16 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/planting/details', [UserController::class, 'planting_details_pdf'])->name('planting_details_pdf');
 
-    // Route::get('/test', function () {
-    //     // $database = app('firebase.database');
-    //     // $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
-    //     // $snapshot = $reference->getSnapshot();
-    //     // $value = $snapshot->getValue();
-    //     // echo '<pre>';
-    //     // print_r($value);
-    //     // echo '</pre>';
-
-    //     // $all_zones_simple = array_map('strtolower',array_keys($value));
-    //     // echo '<pre>';
-    //     // print_r($all_zones_simple);
-    //     // echo '</pre>';
-
-
-    //     return view('user.index');
-    // });
+    Route::get('/test', function () {
+        $database = app('firebase.database');
+            $results = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/')->getChildKeys();
+            $suitable_mangoes = [];
+            foreach ($results as $key => $mango_variety) {
+                $result = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/'.$mango_variety)->getValue();
+                if($result['wet_zone'] && $result['ground']) {
+                    array_push($suitable_mangoes, $mango_variety);
+                }
+            }
+            echo $suitable_mangoes[rand(0, count($suitable_mangoes)-1)];
+    });
 });
