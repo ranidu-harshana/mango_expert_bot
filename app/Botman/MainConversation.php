@@ -233,6 +233,8 @@ class MainConversation extends Conversation
                 ];
                 $database = app('firebase.database');
                 $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
+                $this->bot->userStorage()->delete();
+
                 return true;
             }else if(preg_match("/no/i", strtolower($this->answerQ))){
                 $this->bot->startConversation(new AlternativeFromQ19());

@@ -16,6 +16,7 @@ class AlternativeFromQ17 extends MainConversation
         ];
         $database = app('firebase.database');
         $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
+        $this->bot->userStorage()->delete();
         $this->say('Thank you!');
     }
 
