@@ -21,6 +21,10 @@ class BotManController extends Controller
             $botman->reply('Just say Hi to start conversation!.');
         });
 
+        $botman->hears('(.*)thank(.*)', function($botman) {
+            $botman->reply('Coversation Stopped.');
+        })->stopsConversation();
+
         $botman->listen();
     }
 }
