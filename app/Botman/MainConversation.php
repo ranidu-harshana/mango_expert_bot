@@ -172,27 +172,35 @@ class MainConversation extends Conversation
         $this->ask('In what month do you expect to plant this plant?', function(Answer $answer) {
             $this->month = $answer->getText();
 
+            $ezone = explode('_', $this->bot->userStorage()->get('zone'));
             if(preg_match("/(september|october|november|december|january|february|march)/i", strtolower($this->month))){
                 $this->season = 'Maha';
-                $this->say('The month you choose belongs to the <span style="color: #5cb85c"><b>'. $this->season .' season</b></span>');
+                $this->say('The month you choose belongs to the <span style="color: #5cb85c"><b>'. $this->season .' </b></span> season');
 
-                // operate answer for this
-                $this->say('But the area you are in belongs to the wet zone so it is / is not suitable for it');
+                $this->say('But the area you are in belongs to the <span style="color: #5cb85c"><b> '. $ezone[0] .' '. $ezone[1] .' </b></span> so it is / is not suitable for it');
                 $this->bot->userStorage()->save([
-                    'month' => $this->month
+                    'month' => $this->month,
+                    'season' => $this->season
                 ]);
                 $this->askKnowladgeGrowing();
-            }elseif(preg_match("/(may|june|july|august)/i", strtolower($this->month))){    
+            }elseif(preg_match("/(may|june|july|august)/i", strtolower($this->month))) {    
                 $this->season = 'Yala';
-                $this->say('The month you choose belongs to the <span style="color: #5cb85c"><b>'. $this->season .'</b></span> season');
 
-                // operate answer for this
-                $this->say('But the area you are in belongs to the <span style="color: #5cb85c"><b> '. $this->bot->userStorage()->get('zone') .' </b></span> so it is / is not suitable for it');
+                $this->say('The month you choose belongs to the <span style="color: #5cb85c"><b>'. $this->season .'</b></span> season');
+                
+                if($this->bot->userStorage()->get('zone') == 'dry_zone') {
+                    $this->say('But the area you are in belongs to the <span style="color: #5cb85c"><b> '. $ezone[0] .' '. $ezone[1] .' </b></span> so it is not suitable for it');
+                    $this->season = 'Maha';
+                }else{
+                    $this->say('But the area you are in belongs to the <span style="color: #5cb85c"><b> '. $ezone[0] .' '. $ezone[1] .' </b></span> so it is suitable for it');
+                }
+
                 $this->bot->userStorage()->save([
-                    'month' => $this->month
+                    'month' => $this->month,
+                    'season' => $this->season
                 ]);
                 $this->askKnowladgeGrowing();
-            }else{
+            }else {
                 $this->repeat('Month cannot be recognized to identify the season!.');
             }
             
@@ -228,6 +236,7 @@ class MainConversation extends Conversation
                     'main_city'=>$this->bot->userStorage()->get('main_city'),
                     'zone'=> $this->bot->userStorage()->get('zone'),
                     'month'=> $this->bot->userStorage()->get('month'),
+                    'season'=> $this->bot->userStorage()->get('season'),
                     'mango_variety'=> $this->bot->userStorage()->get('mango_variety'),
                     'date'=> date("Y-m-d"),
                 ];

@@ -43,14 +43,28 @@ Route::middleware(['is_logged_in'])->group(function () {
 
     Route::get('/test', function () {
         $database = app('firebase.database');
-            $results = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/')->getChildKeys();
-            $suitable_mangoes = [];
-            foreach ($results as $key => $mango_variety) {
-                $result = $database->getReference('/mango_varieties/-N0jBoLWAU2xL-2RcNW3/'.$mango_variety)->getValue();
-                if($result['wet_zone'] && $result['ground']) {
-                    array_push($suitable_mangoes, $mango_variety);
-                }
-            }
-            echo $suitable_mangoes[rand(0, count($suitable_mangoes)-1)];
+
+        $reference = $database->getReference('cant_cultivate/-N0jDbEceHRDRrgaw7T4');
+        $snapshot = $reference->getSnapshot();
+        $value = $snapshot->getValue();
+        $cant_cultivate_zones = array_map('strtolower',array_keys($value));
+        $imploded_cant_cultivate_cities = implode('|', $cant_cultivate_zones);
+
+        $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
+        $snapshot = $reference->getSnapshot();
+        $value = $snapshot->getValue();
+        $all_zones_simple = array_map('strtolower',array_keys($value));
+
+        $imploded_cities = implode('|', $all_zones_simple);
+        if(preg_match('/'.$imploded_cities.'/i', strtolower('sfsdf colombo fsfsd'), $matched)) {
+            echo('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
+            $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
+            
+        }
+        // else if(preg_match('/'.$imploded_cant_cultivate_cities.'/i', strtolower($this->main_city), $matched)) {
+        //     $this->bot->startConversation(new NotSuitableZone());
+        // }else{
+        //     $this->repeat('Enter a correct zone');
+        // }
     });
 });

@@ -14,6 +14,7 @@ class AlternativeFromQ19 extends MainConversation
             'main_city'=>$this->bot->userStorage()->get('main_city'),
             'zone'=> $this->bot->userStorage()->get('zone'),
             'month'=> $this->bot->userStorage()->get('month'),
+            'season'=> $this->bot->userStorage()->get('season'),
             'mango_variety'=> $this->bot->userStorage()->get('mango_variety'),
             'date'=> date("Y-m-d"),
         ];
