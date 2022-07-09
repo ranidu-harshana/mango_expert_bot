@@ -39,33 +39,35 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/plantations', [UserController::class, 'plantations'])->name('user.plantations');
     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/planting/details', [UserController::class, 'planting_details_pdf'])->name('planting_details_pdf');
+    Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
 
-    Route::get('/test', function () {
-        $database = app('firebase.database');
+    // Route::get('/test', function () {
+    //     $database = app('firebase.database');
 
-        $reference = $database->getReference('cant_cultivate/-N0jDbEceHRDRrgaw7T4');
-        $snapshot = $reference->getSnapshot();
-        $value = $snapshot->getValue();
-        $cant_cultivate_zones = array_map('strtolower',array_keys($value));
-        $imploded_cant_cultivate_cities = implode('|', $cant_cultivate_zones);
+    //     $reference = $database->getReference('cant_cultivate/-N0jDbEceHRDRrgaw7T4');
+    //     $snapshot = $reference->getSnapshot();
+    //     $value = $snapshot->getValue();
+    //     $cant_cultivate_zones = array_map('strtolower',array_keys($value));
+    //     $imploded_cant_cultivate_cities = implode('|', $cant_cultivate_zones);
 
-        $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
-        $snapshot = $reference->getSnapshot();
-        $value = $snapshot->getValue();
-        $all_zones_simple = array_map('strtolower',array_keys($value));
+    //     $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
+    //     $snapshot = $reference->getSnapshot();
+    //     $value = $snapshot->getValue();
+    //     $all_zones_simple = array_map('strtolower',array_keys($value));
 
-        $imploded_cities = implode('|', $all_zones_simple);
-        if(preg_match('/'.$imploded_cities.'/i', strtolower('sfsdf colombo fsfsd'), $matched)) {
-            echo('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
-            $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
+    //     $imploded_cities = implode('|', $all_zones_simple);
+    //     if(preg_match('/'.$imploded_cities.'/i', strtolower('sfsdf colombo fsfsd'), $matched)) {
+    //         echo('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
+    //         $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
             
-        }
-        // else if(preg_match('/'.$imploded_cant_cultivate_cities.'/i', strtolower($this->main_city), $matched)) {
-        //     $this->bot->startConversation(new NotSuitableZone());
-        // }else{
-        //     $this->repeat('Enter a correct zone');
-        // }
-    });
+    //     }
+    //     // else if(preg_match('/'.$imploded_cant_cultivate_cities.'/i', strtolower($this->main_city), $matched)) {
+    //     //     $this->bot->startConversation(new NotSuitableZone());
+    //     // }else{
+    //     //     $this->repeat('Enter a correct zone');
+    //     // }
+    // });
 });
