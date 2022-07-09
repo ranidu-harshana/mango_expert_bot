@@ -41,7 +41,7 @@
                     </li>
                     @if (session('verfied_user_id'))
                         <li class="nav-item">
-                            <a href="user" class="nav-link"><i class="fas fas fa-user-circle"></i> User</a>
+                            <a href="profile" class="nav-link"><i class="fas fas fa-user-circle"></i> User</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"

@@ -20,4 +20,8 @@ class UserController extends Controller
         $pdf->loadView('user.planting-details-pdf');
         return $pdf->stream();
     }
+
+    public function profile () {
+        return view("user.profile");
+    }
 }

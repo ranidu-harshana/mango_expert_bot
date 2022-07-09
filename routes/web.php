@@ -39,6 +39,7 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/planting/details', [UserController::class, 'planting_details_pdf'])->name('planting_details_pdf');
 
     Route::get('/test', function () {
