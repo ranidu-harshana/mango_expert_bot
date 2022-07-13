@@ -43,31 +43,23 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/planting/details', [UserController::class, 'planting_details_pdf'])->name('planting_details_pdf');
     Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::put('/user/fertilizer', [UserController::class, 'fertilizer'])->name('user.fertilizer');
+    
+});
+Route::get('/test', function () {
+    $database = app('firebase.database');
 
-    // Route::get('/test', function () {
-    //     $database = app('firebase.database');
+    $postData = [
+        '1How When to apply' => '5th  year flowering At the time',
+        '2Type'=>["Urea"=>165, "ERP"=>492, "MOP"=>570],
+        '3Amount of fertilizer required'=>["N"=>76, "P2O5"=>138, "K2O"=>342],
+    ];
+    $postRef = $database->getReference('for_wetzone_table')->push($postData);
+    
+    echo "<pre>";
+    $key = $database->getReference('for_wetzone_table')->getChildKeys();
+    print_r($key);
+    echo "</pre><br>";
 
-    //     $reference = $database->getReference('cant_cultivate/-N0jDbEceHRDRrgaw7T4');
-    //     $snapshot = $reference->getSnapshot();
-    //     $value = $snapshot->getValue();
-    //     $cant_cultivate_zones = array_map('strtolower',array_keys($value));
-    //     $imploded_cant_cultivate_cities = implode('|', $cant_cultivate_zones);
-
-    //     $reference = $database->getReference('zones/-N0j9C_qP_ZV_Zk-e0Qg');
-    //     $snapshot = $reference->getSnapshot();
-    //     $value = $snapshot->getValue();
-    //     $all_zones_simple = array_map('strtolower',array_keys($value));
-
-    //     $imploded_cities = implode('|', $all_zones_simple);
-    //     if(preg_match('/'.$imploded_cities.'/i', strtolower('sfsdf colombo fsfsd'), $matched)) {
-    //         echo('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
-    //         $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
-            
-    //     }
-    //     // else if(preg_match('/'.$imploded_cant_cultivate_cities.'/i', strtolower($this->main_city), $matched)) {
-    //     //     $this->bot->startConversation(new NotSuitableZone());
-    //     // }else{
-    //     //     $this->repeat('Enter a correct zone');
-    //     // }
-    // });
+    // return view("test");
 });

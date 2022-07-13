@@ -72,4 +72,25 @@ class UserController extends Controller
         
         return back();
     }
+
+    public function fertilizer (Request $request) {
+        $database = app('firebase.database');
+
+        $uid = session("verfied_user_id");
+        if ($request->zone == "wet_zone") {
+            $updates = [
+                $uid => $request->plant_id,
+            ];
+            
+            $database->getReference('for_wetzone_table/'.$request->fertilizer_id)->update($updates);
+        } elseif ($request->zone == "dry_zone") {
+            $updates = [
+                $uid => $request->plant_id,
+            ];
+            
+            $database->getReference('for_dryzone_table/'.$request->fertilizer_id)->update($updates);
+        }
+        
+        return back();
+    }
 }
