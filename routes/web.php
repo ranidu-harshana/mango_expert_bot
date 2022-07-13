@@ -47,19 +47,19 @@ Route::middleware(['is_logged_in'])->group(function () {
     
 });
 Route::get('/test', function () {
-    $database = app('firebase.database');
+    // $database = app('firebase.database');
 
-    $postData = [
-        '1How When to apply' => '5th  year flowering At the time',
-        '2Type'=>["Urea"=>165, "ERP"=>492, "MOP"=>570],
-        '3Amount of fertilizer required'=>["N"=>76, "P2O5"=>138, "K2O"=>342],
-    ];
-    $postRef = $database->getReference('for_wetzone_table')->push($postData);
+    // $postData = [
+    //     '1How When to apply' => '5th  year flowering At the time',
+    //     '2Type'=>["Urea"=>180, "TSP"=>240, "MOP"=>650],
+    //     '3Amount of fertilizer required'=>["N"=>83, "P2O5"=>110, "K2O"=>390],
+    // ];
+    // $postRef = $database->getReference('for_dryzone_table')->push($postData);
     
-    echo "<pre>";
-    $key = $database->getReference('for_wetzone_table')->getChildKeys();
-    print_r($key);
-    echo "</pre><br>";
+    // echo "<pre>";
+    // $key = $database->getReference('for_dryzone_table')->getChildKeys();
+    // print_r($key);
+    // echo "</pre><br>";
 
     // return view("test");
 });
