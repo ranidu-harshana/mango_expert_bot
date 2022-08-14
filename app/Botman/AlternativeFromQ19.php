@@ -21,6 +21,8 @@ class AlternativeFromQ19 extends MainConversation
         $database = app('firebase.database');
         $postRef = $database->getReference('user_profile/'.session('verfied_user_id'))->push($postData);
         $this->bot->userStorage()->delete();
+        $this->say('Click here to see fertilizer schedule of your plant. You will recieve a email with the next immediate fertilizer action. <br><a class="btn btn-success" href="../user/welcomemail" target="_parent">Click</a>');
+        
         $this->say('Thank you!');
     }
 

@@ -93,4 +93,8 @@ class UserController extends Controller
         
         return back();
     }
+
+    public function show_tables() {
+        return view('user.fertilizer-tables');
+    }
 }

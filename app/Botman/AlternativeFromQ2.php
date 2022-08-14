@@ -14,9 +14,12 @@ class AlternativeFromQ2 extends MainConversation
 
             if(preg_match("/yes/i", strtolower($this->answerQ))) {
                 $this->say('Refer this fertilizer details');
+                $this->say('Refer this fertilizer details. You will recieve a email with all the fertilizer details. <br><a class="btn btn-success" href="../user/fertilizermail" target="_parent">Click</a>');
+
                 $this->say('Thank you!');
             }else if(preg_match("/no/i", strtolower($this->answerQ))){
                 $this->say('Contact this Agri Development Officer for more information');
+                
                 $this->say('Thank you!');
             }else{
                 $this->repeat('Just say Yes or No');

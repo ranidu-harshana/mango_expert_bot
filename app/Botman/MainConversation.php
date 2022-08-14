@@ -230,6 +230,8 @@ class MainConversation extends Conversation
 
             if(preg_match("/yes/i", strtolower($this->answerQ))) {
                 $this->say('Contact this Agri Development Officer');
+                $this->say('Click here to see fertilizer schedule of your plant. You will recieve a email with the next immediate fertilizer action. <br><a class="btn btn-success" href="../user/welcomemail" target="_parent">Click</a>');
+        
                 $this->say('Thank you!');
                 $postData = [
                     'land' => $this->bot->userStorage()->get('land'),

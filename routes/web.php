@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +45,9 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::get('/planting/details', [UserController::class, 'planting_details_pdf'])->name('planting_details_pdf');
     Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::put('/user/fertilizer', [UserController::class, 'fertilizer'])->name('user.fertilizer');
-    
+    Route::get('/user/welcomemail', [MailController::class, 'sendWelcomeMail'])->name('user.welcomemail');
+    Route::post('/user/fertilizermail', [MailController::class, 'sendFertilizerMail'])->name('user.fertilizermail');
+    Route::post('/user/fertilizers', [UserController::class, 'show_tables'])->name('user.fertilizers');
 });
 Route::get('/test', function () {
     // $database = app('firebase.database');
@@ -61,5 +64,5 @@ Route::get('/test', function () {
     // print_r($key);
     // echo "</pre><br>";
 
-    // return view("test");
+    // return view("emails.fertilizermail");
 });
