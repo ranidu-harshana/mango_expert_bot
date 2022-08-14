@@ -45,6 +45,6 @@ class MailController extends Controller
         ];
 
         Mail::to($user->email)->send(new FertilizerMail($details));
-        return view('user.fertilizer-tables');
+        return redirect()->route("user.index");
     }
 }

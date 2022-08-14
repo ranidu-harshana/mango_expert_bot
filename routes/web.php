@@ -46,7 +46,7 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::put('/user/fertilizer', [UserController::class, 'fertilizer'])->name('user.fertilizer');
     Route::get('/user/welcomemail', [MailController::class, 'sendWelcomeMail'])->name('user.welcomemail');
-    Route::post('/user/fertilizermail', [MailController::class, 'sendFertilizerMail'])->name('user.fertilizermail');
+    Route::get('/user/fertilizermail', [MailController::class, 'sendFertilizerMail'])->name('user.fertilizermail');
     Route::post('/user/fertilizers', [UserController::class, 'show_tables'])->name('user.fertilizers');
 });
 Route::get('/test', function () {
