@@ -52,7 +52,8 @@
 			<li class="nav-item">
 				<a class="nav-link" href="plantations">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Plantations</span></a>
+					<span>Plantations</span>
+				</a>
 			</li>
 
 			
