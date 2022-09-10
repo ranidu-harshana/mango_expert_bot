@@ -50,19 +50,16 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::post('/user/fertilizers', [UserController::class, 'show_tables'])->name('user.fertilizers');
 });
 Route::get('/test', function () {
-    // $database = app('firebase.database');
+    $database = app('firebase.database');
 
-    // $postData = [
-    //     '1How When to apply' => '5th  year flowering At the time',
-    //     '2Type'=>["Urea"=>180, "TSP"=>240, "MOP"=>650],
-    //     '3Amount of fertilizer required'=>["N"=>83, "P2O5"=>110, "K2O"=>390],
-    // ];
-    // $postRef = $database->getReference('for_dryzone_table')->push($postData);
-    
-    // echo "<pre>";
-    // $key = $database->getReference('for_dryzone_table')->getChildKeys();
-    // print_r($key);
-    // echo "</pre><br>";
+    $reference = $database->getReference('mango_varieties/-N0jBoLWAU2xL-2RcNW3');
+    $snapshot = $reference->getSnapshot();
+    $value = $snapshot->getValue();
+    $all_mango_varieties_simple = array_map('strtolower',array_keys($value));
+    $imploded_mango_varieties = implode('|', $all_mango_varieties_simple);
 
-    // return view("emails.fertilizermail");
+    echo "<pre>";
+    print_r($value['Alphonso']['dry_zone']);
+    echo "</pre>";
+    echo $imploded_mango_varieties;
 });

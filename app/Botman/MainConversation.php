@@ -69,8 +69,8 @@ class MainConversation extends Conversation
             $snapshot = $reference->getSnapshot();
             $value = $snapshot->getValue();
             $all_zones_simple = array_map('strtolower',array_keys($value));
-
             $imploded_cities = implode('|', $all_zones_simple);
+            
             if(preg_match('/'.$imploded_cities.'/i', strtolower($this->main_city), $matched)) {
                 $this->say('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
                 $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
