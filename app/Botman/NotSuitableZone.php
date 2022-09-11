@@ -5,6 +5,7 @@ namespace App\Botman;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Botman\AlternativeFromQ2;
+
 class NotSuitableZone extends Conversation
 {
 
