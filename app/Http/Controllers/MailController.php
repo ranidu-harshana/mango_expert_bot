@@ -22,8 +22,8 @@ class MailController extends Controller
 
 
         $details = [
-            "title"=>"title",
-            "body"=>"Body",
+            "title"=>"Tree Plantation Instruction System",
+            "body"=>"Welcome to Tree Plantation Instruction Automated System",
         ];
 
         Mail::to($user->email)->send(new WelcomeMail($details));
