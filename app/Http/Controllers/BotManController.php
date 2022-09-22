@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Botman\MainConversation;
+use App\Botman\WelcomeConversation;
 use BotMan\BotMan\Middleware\DialogFlowV2;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class BotManController extends Controller
         $botman = app('botman');
 
         $botman->hears('Hi(.*)|Hello(.*)|hi(.*)|hello(.*)|hy|HY|Hy|HI|HELLO', function ($botman, $message) {
-            $botman->startConversation(new MainConversation);
+            $botman->startConversation(new WelcomeConversation);
         });
 
         $botman->fallback(function($botman){
