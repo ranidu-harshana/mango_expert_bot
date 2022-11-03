@@ -49,44 +49,33 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::get('/user/fertilizermail', [MailController::class, 'sendFertilizerMail'])->name('user.fertilizermail');
     Route::post('/user/fertilizers', [UserController::class, 'show_tables'])->name('user.fertilizers');
 });
+
 Route::get('/test', function () {
-    $mango_variety = "Karutha colomban";
+    $mango_variety = "gira amba";
             
-            $database = app('firebase.database');
+    $database = app('firebase.database');
 
-            $reference = $database->getReference('mango_varieties/-N0jBoLWAU2xL-2RcNW3');
-            $snapshot = $reference->getSnapshot();
-            $value = $snapshot->getValue();
-            $all_mango_varieties_simple = array_map('strtolower',array_keys($value));
-            $imploded_mango_varieties = implode('|', $all_mango_varieties_simple);
+    $reference = $database->getReference('mango_varieties/-N0jBoLWAU2xL-2RcNW3');
+    $snapshot = $reference->getSnapshot()->getValue();
+    $all_mango_varieties_simple = array_map('strtolower',array_keys($snapshot));
+    
+    echo "<pre>";
+    print_r($all_mango_varieties_simple);
+    echo "</pre>";
 
-            $zone = "wet_zone";
-            if(preg_match("/".$imploded_mango_varieties."/i", strtolower($mango_variety), $matched)) {
-                $fake = false;
-                try {
-                    $res = $value[ucfirst(strtolower($mango_variety))][$zone];
-                    $decided_plant = ucfirst(strtolower($mango_variety));
-                } catch (\Throwable $th) {
-                    $fake = true;
-                }
-
-                if ($fake) {
-                    try {
-                        $res = $value[ucwords(strtolower($mango_variety), " ")][$zone];
-                        $decided_plant = ucwords(strtolower($mango_variety), " ");
-                    } catch (\Throwable $th) {
-                        $res = $th;
-                    }
-                }
-                
-                var_dump($res);
-                if ($res) {
-                    echo("According to your city <span style='color: #5cb85c'><b>".$decided_plant."</b></span> is suitable!\nThanks good luck");
-                    
-                } else {
-                    echo("According to your city <span style='color: red'><b>".$decided_plant."</b></span> is not suitable!");
-                }
-            } else {
-                echo('I cannot identify this mango variety');
+    if (in_array(strtolower($mango_variety), $all_mango_varieties_simple)) {
+        try {
+            $res = $snapshot[ucfirst(strtolower($mango_variety))]["details"];
+        } catch (\Throwable $th) {
+            try {
+                $res = $snapshot[ucwords(strtolower($mango_variety), " ")]["details"];
+            } catch (\Throwable $th) {
+                $res = $th;
             }
+        }
+
+        echo "<pre>";
+        print_r($res);
+        echo "</pre>";
+    }
 });
