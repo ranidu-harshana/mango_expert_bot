@@ -50,6 +50,10 @@ Route::middleware(['is_logged_in'])->group(function () {
     Route::post('/user/fertilizers', [UserController::class, 'show_tables'])->name('user.fertilizers');
 });
 
+Route::get('/diseases/symptoms', function() {
+    return view('pages.diseases-and-symptoms');
+});
+
 Route::get('/test', function () {
     $mango_variety = "gira amba";
             
