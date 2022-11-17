@@ -54,6 +54,10 @@ Route::get('/diseases/symptoms', function() {
     return view('pages.diseases-and-symptoms');
 });
 
+Route::get('/pests', function() {
+    return view('pages.pests');
+});
+
 Route::get('/test', function () {
     $mango_variety = "gira amba";
             

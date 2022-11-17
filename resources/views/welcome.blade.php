@@ -12,7 +12,12 @@
     <article>
       <h2 class="heading">Mango Tree Plantation Instructions</h2>
       <p>Mango, Mangifera indica, is an evergreen tree in the family Anacardiaceae grown for its edible fruit. The mango tree is erect and branching with a thick trunk and broad, rounded canopy. The leaves of the tree are are shiny and dark green. They are either elliptical or lanceolate with long petioles and a leathery texture. The tree produces dense clusters of flowers with cream-pink petals on branched panicles.</p>
-      <footer><a class="btn" href="/login">My Profile</a></footer>
+      @if (Auth::check())
+      <footer><a class="btn btn-warning" href="/user">My Profile</a></footer>
+      @else
+      <footer><a class="btn btn-warning" href="/login">My Profile</a></footer>
+
+      @endif
     </article>
     
   </div>
@@ -37,7 +42,7 @@
       <li class="one_third first">
         <article class="element">
           <figure><img src="{{asset('layout/img/320x210 1.png')}}" alt="">
-            <figcaption><a class="btn small" href="#">More</a></figcaption>
+            <figcaption style="margin-bottom: 8px;"><a class="btns small" style="padding: 10px 10px" href="https://drive.google.com/file/d/1N3fprtom7CNYhX5MfuJmAt7ckZleCd_x/view?usp=share_link" >More</a></figcaption>
           </figure>
           <div class="excerpt">
             <!--<time datetime="2045-06-06T08:15+00:00" data-title="June"><strong>Jun</strong> <em>06</em></time>-->
@@ -49,7 +54,7 @@
       <li class="one_third">
         <article class="element">
           <figure><img src="{{asset('layout/img/320x210 2.png')}}" alt="">
-            <figcaption><a class="btn small" href="#">More</a></figcaption>
+            <figcaption style="margin-bottom: 8px;"><a class="btns small" style=" padding: 10px 10px" href="/diseases/symptoms">More</a></figcaption>
           </figure>
           <div class="excerpt">
             <!--<time datetime="2045-06-06T08:15+00:00" data-title="June"><strong>Jun</strong> <em>06</em></time>-->
@@ -61,7 +66,7 @@
       <li class="one_third">
         <article class="element">
           <figure><img src="{{asset('layout/img/320x210 3.png')}}" alt="">
-            <figcaption><a class="btn small" href="#">More</a></figcaption>
+            <figcaption style="margin-bottom: 8px;"><a class="btns small" style="padding: 10px 10px" href="/pests">More</a></figcaption>
           </figure>
           <div class="excerpt">
             <!--<time datetime="2045-06-06T08:15+00:00" data-title="June"><strong>Jun</strong> <em>06</em></time>-->
@@ -71,40 +76,12 @@
         </article>
       </li>
     </ul>
-    <p class="center nospace"><a class="btn" href="#">View More</a></p>
-   
-   
-    <!-- / main body -->
-	
-	
 	
     <div class="clear"></div>
   </main>
 </div>
 
-
-
-
-<div class="wrapper bgded overlay coloured" style="background-image:url('{{asset('layout/img/02.png')}}');">
-  <div class="hoc container clear"> 
-    
-    <article class="center">
-      <h2 class="font-x3 uppercase">Common Instructions</h2>
-      <p class="btmspace-50 font-x2 capitalise">Mango trees (Mangifera indica) are deep-rooted plants that may become large specimens in the landscape.</p>
-      <footer>
-        <ul class="nospace inline pushright">
-          <li><a class="btn inverse" href="#">Common Advice</a></li>
-          <li><a class="btn" href="#">Advice from Experts</a></li>
-        </ul>
-      </footer>
-    </article>
-    
-  </div>
-</div>
-
-
-
-
+{{-- 
 <div class="wrapper row3">
   <section class="hoc container clear"> 
 
@@ -135,7 +112,7 @@
     </div>
    
   </section>
-</div>
+</div> --}}
 
 
 
