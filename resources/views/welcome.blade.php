@@ -1,6 +1,10 @@
 <x-header/>
 <x-top-nav/>
-
+<style>
+  a {
+    text-decoration: none
+  }
+</style>
 <div class="wrapper bgded overlay" style="background-image:url('{{asset('layout/img/backgrounds/01.png')}}');">
   <div id="pageintro" class="hoc clear"> 
     
