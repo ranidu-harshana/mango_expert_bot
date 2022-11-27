@@ -14,7 +14,7 @@
             <ul >
               <li><a href="/diseases/symptoms" class="text-decoration-none">Diseases and symptom</a></li>
               <li><a href="/pests" class="text-decoration-none">Pests </a></li>
-              <li><a href="pages/sidebar-left.html" class="text-decoration-none">Mango Varieties</a></li>
+              <li><a href="/mango/verities" class="text-decoration-none">Mango Varieties</a></li>
             </ul>
           </li>
           <li><a class="drop text-decoration-none" href="#">Techniques</a>

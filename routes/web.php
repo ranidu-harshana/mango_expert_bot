@@ -58,6 +58,10 @@ Route::get('/pests', function() {
     return view('pages.pests');
 });
 
+Route::get('/mango/verities', function() {
+    return view('pages.mango-verities');
+});
+
 Route::get('/test', function () {
     $mango_variety = "gira amba";
             
