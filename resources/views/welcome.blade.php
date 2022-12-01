@@ -29,10 +29,7 @@
 <div class="wrapper row3">
   <main class="hoc container clear"> 
   
-  
     <!-- main body -->
-
-
 
     <div class="center btmspace-50">
       <h2 class="heading">About</h2>
@@ -42,7 +39,34 @@
       <li class="one_third first">
         <article class="element">
           <figure><img src="{{asset('layout/img/320x210 1.png')}}" alt="">
-            <figcaption style="margin-bottom: 8px;"><a class="btns small" style="padding: 10px 10px" href="https://drive.google.com/file/d/1N3fprtom7CNYhX5MfuJmAt7ckZleCd_x/view?usp=share_link" >More</a></figcaption>
+            <figcaption style="margin-bottom: 8px;"><a class="btns small" style="padding: 10px 10px" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">More</a></figcaption>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mangos pack a nutritional punch.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <ul>
+                      <li>A mango serving size is equivalent to 3/4 cup of sliced mangos and is just 70 calories, so it’s a satisfyingly sweet treat.</li><br>
+                      <li>There are 202 calories in 1 whole mango (without refuse and 336g).</li><br>
+                      <li>Each serving of mango is fat free, sodium free and cholesterol free.</li><br>
+                      <li>Mangos contain over 20 different vitamins and minerals, helping to make them a superfood.</li><br>
+                      <li>3/4 cup of mango provides 50% of your daily vitamin C, 8% of your daily Vitamin A and 8% of your daily vitamin B6. These nutrients in mango may help support your body’s immune system</li><br>
+                      <li>One serving (3/4 cup) of mango contains 7% of your daily fiber. It’s a delicious and fun way to get some fiber in your diet.</li><br>
+                      <li>3/4 cup of mango is also a good source of folate, making up 15% of your daily requirement and also of copper, making up 15% of your daily needs.</li><br>
+                      <li>There are 19g of carbohydrates in a 3/4 cup serving of mango, making up 7% of your daily value. Give your body a delicious and super fun super fruit!</li><br>
+                      <li><a href = "{{ asset('assets/pdf/Mango_Nutrition_Handout_2022_final.pdf') }}" download > Download Link</a></li>
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </figure>
           <div class="excerpt">
             <!--<time datetime="2045-06-06T08:15+00:00" data-title="June"><strong>Jun</strong> <em>06</em></time>-->
