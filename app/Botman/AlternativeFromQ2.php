@@ -18,7 +18,7 @@ class AlternativeFromQ2 extends MainConversation
 
                 $this->say('Thank you!');
             }else if(preg_match("/no/i", strtolower($this->answerQ))){
-                $this->say('Contact this Agri Development Officer for more information');
+                $this->say('Contact 011-2034300 Agri Development Officer for more information');
                 
                 $this->say('Thank you!');
             }else{

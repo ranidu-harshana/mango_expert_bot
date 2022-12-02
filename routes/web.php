@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
+use Carbon\Carbon;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,31 +64,7 @@ Route::get('/mango/verities', function() {
 });
 
 Route::get('/test', function () {
-    $mango_variety = "gira amba";
-            
-    $database = app('firebase.database');
-
-    $reference = $database->getReference('mango_varieties/-N0jBoLWAU2xL-2RcNW3');
-    $snapshot = $reference->getSnapshot()->getValue();
-    $all_mango_varieties_simple = array_map('strtolower',array_keys($snapshot));
-    
-    echo "<pre>";
-    print_r($all_mango_varieties_simple);
-    echo "</pre>";
-
-    if (in_array(strtolower($mango_variety), $all_mango_varieties_simple)) {
-        try {
-            $res = $snapshot[ucfirst(strtolower($mango_variety))]["details"];
-        } catch (\Throwable $th) {
-            try {
-                $res = $snapshot[ucwords(strtolower($mango_variety), " ")]["details"];
-            } catch (\Throwable $th) {
-                $res = $th;
-            }
-        }
-
-        echo "<pre>";
-        print_r($res);
-        echo "</pre>";
-    }
+    $date = Carbon::now();
+    $monthName = $date->format('F');
+    var_dump($monthName);
 });

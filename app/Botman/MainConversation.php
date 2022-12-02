@@ -5,6 +5,7 @@ namespace App\Botman;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Botman\AlternativeFromQ2;
+use Carbon\Carbon;
 
 class MainConversation extends Conversation
 {
@@ -73,7 +74,7 @@ class MainConversation extends Conversation
             $imploded_cities = implode('|', $all_zones_simple);
             
             if(preg_match('/'.$imploded_cities.'/i', strtolower($this->main_city), $matched)) {
-                $this->say('Sir! According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
+                $this->say('According to our data you belong to the <span style="color: #5cb85c"><b>'. $value[ucwords(strtolower($matched[0]))] . '</b></span>');
                 $impolded_zone = explode(' ', $value[ucwords(strtolower($matched[0]))]);
                 $this->bot->userStorage()->save([
                     'main_city' => $this->main_city,
@@ -173,6 +174,10 @@ class MainConversation extends Conversation
         $this->ask('In what month do you expect to plant this plant?', function(Answer $answer) {
             $this->month = $answer->getText();
 
+            if (preg_match("/this month/i", strtolower($this->month))) {
+                $date = Carbon::now();
+                $this->month = $date->format('F');
+            }
             $ezone = explode('_', $this->bot->userStorage()->get('zone'));
             if(preg_match("/(september|october|november|december|january|february|march)/i", strtolower($this->month))){
                 $this->season = 'Maha';
@@ -230,7 +235,7 @@ class MainConversation extends Conversation
             $this->answerQ = $answer->getText();
 
             if(preg_match("/yes/i", strtolower($this->answerQ))) {
-                $this->say('Contact this Agri Development Officer');
+                $this->say('Contact 011-2034300 Agri Development Officer');
                 $this->say('Click here to see fertilizer schedule of your plant. You will recieve a email with the next immediate fertilizer action. <br><a class="btn btn-success" href="../user/welcomemail" target="_parent">Click</a>');
         
                 $this->say('Thank you!');
