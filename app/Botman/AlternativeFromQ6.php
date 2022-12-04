@@ -8,11 +8,11 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 class AlternativeFromQ6 extends MainConversation
 {
     public function askMangoVariety() {
-        $this->ask('What is the your selected verities?', function(Answer $answer) {
+        $this->ask('What is the your selected verity?', function(Answer $answer) {
             $this->mango_variety = $answer->getText();
             
             $database = app('firebase.database');
-            
+             
             $reference = $database->getReference('mango_varieties/-N0jBoLWAU2xL-2RcNW3');
             $snapshot = $reference->getSnapshot();
             $value = $snapshot->getValue();
