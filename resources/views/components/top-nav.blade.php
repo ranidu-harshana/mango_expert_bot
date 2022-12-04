@@ -2,7 +2,7 @@
     <header id="header" class="hoc clear"> 
       
       <div id="logo" class="fl_left">
-        <h1 ><a href="index.html" class="text-decoration-none">Tree Plantation Instruction System</a></h1>
+        <h1 ><a href="/" class="text-decoration-none">Tree Plantation Instruction System</a></h1>
         <p></p>
       </div>
       

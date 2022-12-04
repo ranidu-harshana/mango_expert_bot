@@ -11,12 +11,11 @@
 	
     <article>
       <h2 class="heading">Mango Tree Plantation Instructions</h2>
-      <p>Mango, Mangifera indica, is an evergreen tree in the family Anacardiaceae grown for its edible fruit. The mango tree is erect and branching with a thick trunk and broad, rounded canopy. The leaves of the tree are are shiny and dark green. They are either elliptical or lanceolate with long petioles and a leathery texture. The tree produces dense clusters of flowers with cream-pink petals on branched panicles.</p>
+      <p style="font-size: 18px">Mango, Mangifera indica, is an evergreen tree in the family Anacardiaceae grown for its edible fruit. The mango tree is erect and branching with a thick trunk and broad, rounded canopy. The leaves of the tree are are shiny and dark green. They are either elliptical or lanceolate with long petioles and a leathery texture. The tree produces dense clusters of flowers with cream-pink petals on branched panicles.</p>
       @if (Auth::check())
       <footer><a class="btn btn-warning" href="/user">My Profile</a></footer>
       @else
-      <footer><a class="btn btn-warning" href="/login">My Profile</a></footer>
-
+      <footer><a class="btn btn-warning" href="/login">My Profile</a> <a class="btn btn-danger" href="/register">Create Profile</a></footer>
       @endif
     </article>
     
